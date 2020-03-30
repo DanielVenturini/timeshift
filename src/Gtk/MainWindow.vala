@@ -658,7 +658,7 @@ class MainWindow : Gtk.Window{
 				Snapshot bak;
 				store.get (iter, 0, out bak);
 				// mark for be always available
-				bak.available();
+				bak.mark_available();
 			}
 			iterExists = store.iter_next (ref iter);
 		}

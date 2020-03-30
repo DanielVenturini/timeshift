@@ -49,6 +49,7 @@ public class Snapshot : GLib.Object{
 	public bool valid = true;
 	public bool live = false;
 	public bool marked_for_deletion = false;
+	public bool available = false;
 	public LinuxDistro distro;
 	public SnapshotRepo repo;
 	
@@ -279,6 +280,11 @@ public class Snapshot : GLib.Object{
 			string delete_trigger_file = path + "/delete";
 			if (file_exists(delete_trigger_file)){
 				marked_for_deletion = true;
+			}
+
+			string available_trigger_file = path + "/available";
+			if (file_exists(available_trigger_file)){
+				available = true;
 			}
 		}
 		else{
@@ -567,6 +573,23 @@ public class Snapshot : GLib.Object{
 		}
 		
 		marked_for_deletion = true;
+	}
+
+	public void mark_available(){
+
+		string delete_trigger_file = path + "/delete";
+		string available_trigger_file = path + "/available";
+
+		if (file_exists(delete_trigger_file)){
+			file_delete(delete_trigger_file);
+			marked_for_deletion = false;
+		}
+
+		if (!file_exists(available_trigger_file)){
+			file_write(available_trigger_file, "");
+		}
+
+		available = true;
 	}
 
 	public void parse_log_file(){
