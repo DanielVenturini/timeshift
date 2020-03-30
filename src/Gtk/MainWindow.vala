@@ -235,6 +235,8 @@ class MainWindow : Gtk.Window{
 		
 		snapshot_list_box.mark_selected.connect(mark_selected);
 
+		snapshot_list_box.available_selected.connect(available_selected);
+
 		snapshot_list_box.browse_selected.connect(browse_selected);
 
 		snapshot_list_box.view_snapshot_log.connect(view_snapshot_log);
@@ -636,6 +638,10 @@ class MainWindow : Gtk.Window{
 			this, false);
 
 		snapshot_list_box.refresh();
+	}
+
+	public void available_selected(){
+		return
 	}
 
 	public void browse_selected(){
