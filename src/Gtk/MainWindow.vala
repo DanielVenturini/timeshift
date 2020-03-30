@@ -641,7 +641,35 @@ class MainWindow : Gtk.Window{
 	}
 
 	public void available_selected(){
-		return
+
+		TreeIter iter;
+		bool is_success = true;
+
+		// get selected snapshots --------------------
+
+		var store = (Gtk.ListStore) snapshot_list_box.treeview.model;
+		bool iterExists = store.get_iter_first (out iter);
+		var sel = snapshot_list_box.treeview.get_selection();
+
+		while (iterExists && is_success) {
+
+			if (sel.iter_is_selected (iter)){
+
+				Snapshot bak;
+				store.get (iter, 0, out bak);
+				// mark for be always available
+				bak.available();
+			}
+			iterExists = store.iter_next (ref iter);
+		}
+
+		App.repo.load_snapshots();
+
+		gtk_messagebox(_("Always Available"),
+			_("Snapshots now is always available, until you mark for deletion"),
+			this, false);
+
+		snapshot_list_box.refresh();
 	}
 
 	public void browse_selected(){

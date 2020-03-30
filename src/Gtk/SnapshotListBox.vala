@@ -47,6 +47,7 @@ class SnapshotListBox : Gtk.Box{
 	private Gtk.Menu menu_snapshots;
 	private Gtk.ImageMenuItem mi_browse;
 	private Gtk.ImageMenuItem mi_remove;
+	private Gtk.ImageMenuItem mi_available;
 	private Gtk.ImageMenuItem mi_mark;
 	private Gtk.ImageMenuItem mi_view_log_create;
 	private Gtk.ImageMenuItem mi_view_log_restore;
@@ -334,7 +335,7 @@ class SnapshotListBox : Gtk.Box{
 		mi_mark = item;
 		
 		// mi_available
-		item = new ImageMenuItem.with_label(_("Always available"));
+		item = new ImageMenuItem.with_label(_("Always Available"));
 		item.image = IconManager.lookup_image("edit-delete", 16);
 		item.activate.connect(()=> { available_selected(); });
 		menu_snapshots.append(item);
@@ -541,7 +542,7 @@ class SnapshotListBox : Gtk.Box{
 		
 		mi_remove.sensitive = (selected.size > 0);
 		mi_mark.sensitive = (selected.size > 0);
-		mi_available = (selected.size > 0);
+		mi_available.sensitive = (selected.size > 0);
 		mi_view_log_create.sensitive = !App.btrfs_mode;
 		mi_view_log_restore.sensitive = !App.btrfs_mode;
 
